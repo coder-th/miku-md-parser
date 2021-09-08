@@ -5,6 +5,7 @@ import postcss from 'rollup-plugin-postcss';
 import json from '@rollup/plugin-json';
 import path from 'path';
 import pkg from './package.json';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 const resolve = (dir) => path.resolve(__dirname, dir);
 const pkgName = pkg.name
   .split('-')
@@ -33,6 +34,7 @@ export default {
     json({
       namedExports: false,
     }),
+    nodePolyfills({ include: ['path'] }),
     resolvePlugin(),
     ts({
       tsconfig: path.resolve(__dirname, 'tsconfig.json'),

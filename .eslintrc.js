@@ -23,7 +23,7 @@ module.exports = defineConfig({
     'no-unused-vars': [
       'error',
       {
-        argsIgnorePattern: '^_',
+        args: 'none',
         varsIgnorePattern: '^_',
       },
     ],
@@ -43,7 +43,7 @@ module.exports = defineConfig({
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        argsIgnorePattern: '^_',
+        args: 'none',
         varsIgnorePattern: '^_',
       },
     ],
