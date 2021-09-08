@@ -1,2 +1,1 @@
-const a = 9999;
-console.log(a);
+export type Test = string | null;

@@ -1,20 +1,26 @@
 {
-  "name": "md-parser",
+  "name": "mikuparser",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.32.0",
     "eslint-define-config": "^1.0.9",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
+    "postcss": "^8.3.6",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
     "rollup": "^2.56.3",
+    "rollup-plugin-postcss": "^4.0.1",
+    "rollup-plugin-typescript2": "^0.30.0",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",
@@ -22,11 +28,22 @@
     "typescript": "^4.4.2"
   },
   "scripts": {
+    "install:husky": "husky install",
     "lint:pretty": "pretty-quick --staged",
     "lint:eslint": "eslint \"{src}/**/*.{js,ts}\" --fix",
     "lint:all": "npm run lint:lint-staged && npm run lint:prettier && npm run lint:stylelint",
     "lint:lint-staged": "lint-staged -c ./.husky/lint-staged.config.js",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,html,md}\"",
-    "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/"
-  }
+    "lint:stylelint": "stylelint --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "build": "rollup -w -c rollup.config.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "src/"
+  ]
 }
