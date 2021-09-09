@@ -1,7 +1,6 @@
 import { Md } from '../types/md';
 import itContainer from 'markdown-it-container';
-import { getCurrentMd } from '../index';
-import { isRegExp } from 'src/utils/is';
+import { isRegExp } from '../utils/is';
 type BaseType = 'success' | 'warning' | 'error' | 'tips' | 'spoiler';
 interface IContainer<T> {
   /**
@@ -22,8 +21,7 @@ interface IContainer<T> {
  * 创建自定义容器
  * @param md
  */
-export function createMdContainer<T>(config: IContainer<T>) {
-  const md = getCurrentMd();
+export function createMdContainer<T>(md: Md, config: IContainer<T>) {
   const { type, validate, render } = config;
   if (md) {
     // 详情容器(折叠)
@@ -49,7 +47,7 @@ export function createMdContainer<T>(config: IContainer<T>) {
 /**
  * 创建基础的容器(内置)
  */
-export function createBaseContainer() {
+export function createBaseContainer(md) {
   const baseType: BaseType[] = ['success', 'warning', 'error', 'tips', 'spoiler'];
   baseType.forEach((type) => {
     const validate = new RegExp(`^${type}(.*)$`);
@@ -75,6 +73,6 @@ export function createBaseContainer() {
         }
       }
     };
-    createMdContainer({ type, validate, render });
+    createMdContainer(md, { type, validate, render });
   });
 }
