@@ -1,7 +1,7 @@
 import markdownIt from 'markdown-it';
-import addBuiltInPlugins from '@/plugins/builtIn';
-import { highlightCode } from '@/plugins/hightlight';
-import { IParser, Md } from '@type/md';
+import addBuiltInPlugins from './plugins/builtIn';
+import { highlightCode } from './plugins/hightlight';
+import { IParser, Md } from './types/md';
 /**
  * 创建一个渲染器
  * @param source

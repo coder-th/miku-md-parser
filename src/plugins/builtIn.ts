@@ -8,7 +8,7 @@ import itIns from 'markdown-it-ins';
 import itMark from 'markdown-it-mark';
 import itAbbr from 'markdown-it-abbr';
 import addMdContainer from './container';
-import { Md } from '@type/md';
+import { Md } from '../types/md';
 /**
  * 添加内置的插件
  * @param md

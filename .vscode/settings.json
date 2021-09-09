@@ -74,11 +74,11 @@
   "liveServer.settings.donotShowInfoMsg": true,
   "telemetry.enableCrashReporter": false,
   "workbench.settings.enableNaturalLanguageSearch": false,
-  "path-intellisense.mappings": {
-    "@/": "${workspaceRoot}/src",
-    "#/": "${workspaceRoot}/types",
-    "&/": "${workspaceRoot}/build"
-  },
+  // "path-intellisense.mappings": {
+  //   "@/": "${workspaceRoot}/src",
+  //   "@type/": "${workspaceRoot}/types",
+  //   "&/": "${workspaceRoot}/build"
+  // },
   "prettier.requireConfig": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.sideBar.location": "left",

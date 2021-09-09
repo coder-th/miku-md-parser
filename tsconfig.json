@@ -13,11 +13,11 @@
     "noImplicitAny": false,
 
     /* 模块分析配置 */
-    "baseUrl": ".",
     "outDir": "./dist",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": "./"
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts", "types/**/*.ts"]
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts", "src/types/**/*.ts"]
 }

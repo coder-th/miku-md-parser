@@ -6,6 +6,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@microsoft/api-extractor": "^7.18.7",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
@@ -29,6 +30,7 @@
     "typescript": "^4.4.2"
   },
   "scripts": {
+    "api": "api-extractor run",
     "install:husky": "husky install",
     "lint:pretty": "pretty-quick --staged",
     "lint:eslint": "eslint \"{src}/**/*.{js,ts}\" --fix",

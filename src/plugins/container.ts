@@ -1,4 +1,4 @@
-import { Md } from '@type/md';
+import { Md } from '../types/md';
 import itContainer from 'markdown-it-container';
 /**
  * 自定义容器
