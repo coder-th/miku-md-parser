@@ -1,8 +1,7 @@
 import markdownIt from 'markdown-it';
-import addBuiltInPlugins from './plugins/builtIn';
-// import mdContainer from './plugins/container';
-// import itContainer from 'markdown-it-container';
-import { highlightCode } from './plugins/hightlight';
+import addBuiltInPlugins from '@/plugins/builtIn';
+import { highlightCode } from '@/plugins/hightlight';
+import { IParser, Md } from '@type/md';
 /**
  * 创建一个渲染器
  * @param source
@@ -20,8 +19,6 @@ export function createMdParser(config: IParser = { toc: { enable: true } }) {
   md._render = false; // 当前已经渲染过了
   // 添加内置的插件
   addBuiltInPlugins(md);
-  // 添加自定义容器
-  // addPlugin(mdContainer)
   function render(source: string) {
     const html = md.render(`${source}`) as string;
     const { toc } = config;
@@ -51,3 +48,4 @@ export function createMdParser(config: IParser = { toc: { enable: true } }) {
     addPlugin,
   };
 }
+export { changeCodeTheme } from './plugins/hightlight';

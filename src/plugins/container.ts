@@ -1,11 +1,10 @@
+import { Md } from '@type/md';
 import itContainer from 'markdown-it-container';
 /**
  * 自定义容器
  * @param md
  */
-function mdContainer(md: Md) {
-  console.log(123123);
-
+function addMdContainer(md: Md) {
   md.use(itContainer, 'spoiler', {
     // 自定义块容器
 
@@ -26,4 +25,4 @@ function mdContainer(md: Md) {
     },
   });
 }
-export default mdContainer;
+export default addMdContainer;

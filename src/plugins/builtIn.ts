@@ -7,6 +7,8 @@ import itSup from 'markdown-it-sup';
 import itIns from 'markdown-it-ins';
 import itMark from 'markdown-it-mark';
 import itAbbr from 'markdown-it-abbr';
+import addMdContainer from './container';
+import { Md } from '@type/md';
 /**
  * 添加内置的插件
  * @param md
@@ -20,28 +22,7 @@ function addBuiltInPlugins(md: Md) {
     .use(itSup) // 上标
     .use(itMark) // 标记
     .use(itAbbr) // 缩写注释
-    .use(itIns) // 插入
-    .use(require('markdown-it-container'), 'spoiler', {
-      // 自定义块容器
-
-      validate: function (params) {
-        console.log('validate', params);
-
-        return params.trim().match(/^spoiler\s+(.*)$/);
-      },
-
-      render: function (tokens, idx) {
-        const m = tokens[idx].info.trim().match(/^spoiler\s+(.*)$/);
-        console.log('tokens', tokens);
-
-        if (tokens[idx].nesting === 1) {
-          // opening tag
-          return '<details><summary>' + md.utils.escapeHtml(m[1]) + '</summary>\n';
-        } else {
-          // closing tag
-          return '</details>\n';
-        }
-      },
-    });
+    .use(itIns); // 插入
+  addMdContainer(md);
 }
 export default addBuiltInPlugins;
