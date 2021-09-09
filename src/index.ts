@@ -1,14 +1,12 @@
 import markdownIt from 'markdown-it';
-import addBuiltInPlugins from './plugins/builtIn';
+import configMdPlugins from './plugins';
 import { highlightCode } from './plugins/hightlight';
 import { IParser, Md } from './types/md';
-/**
- * 创建一个渲染器
- * @param source
- * @param config
- * @returns
- */
-export function createMdParser(config: IParser = { toc: { enable: true } }) {
+const _globalData: { md: null | Md } = {
+  md: null,
+};
+
+function createMd(config: IParser): Md {
   const md = new markdownIt({
     quotes: '“”‘’',
     // 设置代码高亮的配置
@@ -16,9 +14,20 @@ export function createMdParser(config: IParser = { toc: { enable: true } }) {
       return highlightCode(md, code, lang);
     },
   });
-  md._render = false; // 当前已经渲染过了
+  (md as Md)._render = false; // 当前已经渲染过了
+  _globalData.md = md as Md;
   // 添加内置的插件
-  addBuiltInPlugins(md);
+  configMdPlugins(md);
+  return md;
+}
+/**
+ * 创建一个渲染器
+ * @param source
+ * @param config
+ * @returns
+ */
+export function createMdParser(config: IParser = { toc: { enable: true } }) {
+  const md = createMd(config);
   function render(source: string) {
     const html = md.render(`${source}`) as string;
     const { toc } = config;
@@ -48,4 +57,12 @@ export function createMdParser(config: IParser = { toc: { enable: true } }) {
     addPlugin,
   };
 }
+/**
+ * 获取当前的渲染器
+ * @returns
+ */
+export function getCurrentMd() {
+  return _globalData.md;
+}
 export { changeCodeTheme } from './plugins/hightlight';
+export { createMdContainer } from './plugins/container';

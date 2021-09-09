@@ -7,13 +7,15 @@ import itSup from 'markdown-it-sup';
 import itIns from 'markdown-it-ins';
 import itMark from 'markdown-it-mark';
 import itAbbr from 'markdown-it-abbr';
-import addMdContainer from './container';
 import { Md } from '../types/md';
+import { createBaseContainer } from './container';
+import { preWrapper } from './preWrapper';
+import { lineNumbers } from './lineNumbers';
 /**
  * 添加内置的插件
  * @param md
  */
-function addBuiltInPlugins(md: Md) {
+function injectMdPlugins(md: Md) {
   md.use(markdownItTaskList, { enable: true }) // 任务列表
     .use(anchorPlugin) // 文章目录路由
     .use(tableContent, { includeLevel: [2, 3, 4] }) // 文章目录级别
@@ -23,6 +25,8 @@ function addBuiltInPlugins(md: Md) {
     .use(itMark) // 标记
     .use(itAbbr) // 缩写注释
     .use(itIns); // 插入
-  addMdContainer(md);
+  createBaseContainer();
+  preWrapper(md);
+  lineNumbers(md);
 }
-export default addBuiltInPlugins;
+export default injectMdPlugins;
