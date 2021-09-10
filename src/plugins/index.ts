@@ -112,15 +112,6 @@ export const builtInPlugins = {
     isCustom: true,
     config: {},
   },
-  // toc目录
-  TOC: {
-    name: 'toc',
-    plugin: preWrapper,
-    enable: true,
-    isCustom: true,
-    source: '',
-    config: {},
-  },
 };
 
 /**

@@ -43,7 +43,6 @@ export type Md = markdownIt & {
   toc: string;
 };
 export interface IParser {
-  lineNumbers?: boolean;
   toc: {
     enable: boolean;
   };
