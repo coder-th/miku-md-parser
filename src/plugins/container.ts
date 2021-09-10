@@ -1,27 +1,12 @@
-import { Md } from '../types/md';
+import { BaseType, Md } from '../types/md';
 import itContainer from 'markdown-it-container';
 import { isRegExp } from '../utils/is';
-type BaseType = 'success' | 'warning' | 'error' | 'tips' | 'spoiler';
-interface IContainer<T> {
-  /**
-   * 该容器的标识
-   */
-  type: T extends BaseType ? BaseType : string;
-  /**
-   * 该容器的验证器。当返回true的时候，才会进行render
-   */
-  validate: RegExp | ((params: string) => boolean);
-  /**
-   * 渲染函数，一定得实现
-   */
-  render: (tokens: string[], idx: number, md: Md) => string;
-}
 
 /**
  * 创建自定义容器
  * @param md
  */
-export function createMdContainer<T>(md: Md, config: IContainer<T>) {
+export const createMdContainer: Md['createMdContainer'] = function (md, config) {
   const { type, validate, render } = config;
   if (md) {
     // 详情容器(折叠)
@@ -43,12 +28,15 @@ export function createMdContainer<T>(md: Md, config: IContainer<T>) {
   } else {
     console.warn('当前您还没有调用createMdParser');
   }
-}
+};
 /**
  * 创建基础的容器(内置)
  */
-export function createBaseContainer(md) {
-  const baseType: BaseType[] = ['success', 'warning', 'error', 'tips', 'spoiler'];
+export function createBaseContainer(md, config) {
+  // 与用户配置的自定义插件合并
+  const baseType = (['success', 'warning', 'error', 'tips', 'spoiler'] as BaseType[]).filter(
+    (item) => config.use.includes(item)
+  );
   baseType.forEach((type) => {
     const validate = new RegExp(`^${type}(.*)$`);
     const render = (tokens, idx, md) => {
@@ -73,6 +61,6 @@ export function createBaseContainer(md) {
         }
       }
     };
-    createMdContainer(md, { type, validate, render });
+    createMdContainer<BaseType>(md, { type, validate, render });
   });
 }

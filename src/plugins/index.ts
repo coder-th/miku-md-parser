@@ -7,11 +7,12 @@ import itSup from 'markdown-it-sup';
 import itIns from 'markdown-it-ins';
 import itMark from 'markdown-it-mark';
 import itAbbr from 'markdown-it-abbr';
-import { Md } from '../types/md';
-import { createBaseContainer } from './container';
+import { BaseType, Md } from '../types/md';
+import { createBaseContainer, createMdContainer } from './container';
 import { preWrapper } from './preWrapper';
 import { lineNumbers } from './lineNumbers';
-const BuiltInPlugins = {
+import { deepMerge } from '../utils/helper';
+export const builtInPlugins = {
   // 任务列表
   TASK_LIST: {
     name: 'task-list',
@@ -42,7 +43,7 @@ const BuiltInPlugins = {
     plugin: markdownItEmoji,
     enable: true,
     isCustom: false,
-    config: {},
+    config: {} as any,
   },
   // 下标
   SUB: {
@@ -50,7 +51,7 @@ const BuiltInPlugins = {
     plugin: itSub,
     enable: true,
     isCustom: false,
-    config: {},
+    config: {} as any,
   },
   // 上标
   SUP: {
@@ -58,7 +59,7 @@ const BuiltInPlugins = {
     plugin: itSup,
     enable: true,
     isCustom: false,
-    config: {},
+    config: {} as any,
   },
   // 标记
   MARK: {
@@ -66,7 +67,7 @@ const BuiltInPlugins = {
     plugin: itMark,
     enable: true,
     isCustom: false,
-    config: {},
+    config: {} as any,
   },
   // 缩写注释
   ABBR: {
@@ -74,7 +75,7 @@ const BuiltInPlugins = {
     plugin: itAbbr,
     enable: true,
     isCustom: false,
-    config: {},
+    config: {} as any,
   },
   // 插入
   INS: {
@@ -82,7 +83,7 @@ const BuiltInPlugins = {
     plugin: itIns,
     enable: true,
     isCustom: false,
-    config: {},
+    config: {} as any,
   },
   // 自定义容器
   BASE_CONTAINER: {
@@ -90,7 +91,10 @@ const BuiltInPlugins = {
     plugin: createBaseContainer,
     enable: true,
     isCustom: true,
-    config: {},
+    config: {
+      use: ['success', 'warning', 'error', 'tips', 'spoiler'] as BaseType[],
+      addContainer: createMdContainer,
+    },
   },
   // 代码区域包裹元素
   PRE_WRAPPER: {
@@ -108,19 +112,42 @@ const BuiltInPlugins = {
     isCustom: true,
     config: {},
   },
+  // toc目录
+  TOC: {
+    name: 'toc',
+    plugin: preWrapper,
+    enable: true,
+    isCustom: true,
+    source: '',
+    config: {},
+  },
 };
+
 /**
  * 添加内置的插件
  * @param md
  */
-function injectMdPlugins(md: Md) {
-  for (const plugin of Object.values(BuiltInPlugins)) {
+export function injectMdPlugins(md: Md) {
+  for (const plugin of Object.values(builtInPlugins)) {
+    if (!plugin.enable || !plugin) return;
     if (plugin.isCustom) {
       // 自定义的插件,直接执行函数就可以
-      plugin.plugin(md);
+      plugin.plugin(md, plugin.config);
     } else {
       md.use(plugin.plugin, plugin.config);
     }
   }
 }
-export default injectMdPlugins;
+
+/**
+ * 设置内置的插件
+ * @param name
+ * @param enable
+ * @param config
+ */
+export const setBuiltInPlugins = (name, config, enable = true) => {
+  builtInPlugins[name].enable = enable;
+  builtInPlugins[name].config = config
+    ? deepMerge(builtInPlugins[name].config, config)
+    : builtInPlugins[name].config;
+};
