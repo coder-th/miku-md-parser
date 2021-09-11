@@ -1,4 +1,5 @@
 import markdownIt from 'markdown-it';
+import { extendMd } from '../extends';
 import { injectMdPlugins, setBuiltInPlugins } from '../plugins';
 import { createMdContainer } from '../plugins/container';
 import { changeCodeTheme, highlightCode } from '../plugins/hightlight';
@@ -96,6 +97,8 @@ export function createMdParser(config: Partial<IParser> = defaultConfig) {
     changeCodeTheme(config.codeTheme!);
     // 生成toc目录
     generateToc(md, config.toc!, source);
+    // 添加扩展功能
+    extendMd();
     md.createMdContainer = createMdContainer;
     return md;
   };

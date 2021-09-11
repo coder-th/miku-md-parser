@@ -93,3 +93,38 @@
   display: inline-block;
   padding-top: 0.5em;
 }
+
+.md-notify {
+  position: fixed;
+  top: 85%;
+  width: 130px;
+  min-height: 50px;
+  padding: 10px 15px;
+  margin: 0 0 0 -60px;
+  font-size: 0.32rem;
+  line-height: 50px;
+  color: var(--font-color);
+  text-align: center;
+  background-color: #fff;
+  border: var(--border-color);
+  border-radius: 4px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgb(209 209 232 / 40%);
+  animation: md-notify-frames 3s ease-in-out;
+}
+@keyframes md-notify-frames {
+  0% {
+    right: 2%;
+    opacity: 100%;
+  }
+
+  50% {
+    right: 1%;
+    opacity: 30%;
+  }
+
+  100% {
+    right: 0;
+    opacity: 0;
+  }
+}

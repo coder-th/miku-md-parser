@@ -1,3 +1,5 @@
+import { CopyClassName } from '../extends/copy';
+
 const COLOR_MAP = {
   bg: '--bg-color',
   border: '--border-color',
@@ -77,6 +79,11 @@ export function initTheme(htmlStr: string, type: MdThemeType) {
 
   return htmlStr;
 }
+/**
+ * 美化代码区块
+ * @param document
+ * @returns
+ */
 function prettierCode(document: Document): string {
   document.querySelectorAll<HTMLElement>('pre').forEach((blockPre) => {
     let lang = 'markdown';
@@ -91,7 +98,7 @@ function prettierCode(document: Document): string {
     blockPre.dataset.lang = lang;
     const copyELe = document.createElement('span');
     copyELe.innerText = lang;
-    copyELe.className = 'md-copy';
+    copyELe.className = CopyClassName;
     copyELe.dataset.lang = lang;
     blockPre.appendChild(copyELe);
     const beautifyEle = document.createElement('div');
