@@ -1,7 +1,7 @@
 import markdownIt from 'markdown-it';
 import { injectMdPlugins, setBuiltInPlugins } from '../plugins';
 import { createMdContainer } from '../plugins/container';
-import { highlightCode } from '../plugins/hightlight';
+import { changeCodeTheme, highlightCode } from '../plugins/hightlight';
 import { initTheme } from '../plugins/theme';
 import { IParser, Md } from '../types/md';
 import { deepMerge, isRender } from '../utils/helper';
@@ -12,6 +12,7 @@ const defaultConfig: IParser = {
   grid: true,
   toc: { enable: true },
   theme: 'blue',
+  codeTheme: 'atom-one-dark',
 };
 function createMd(): Md {
   const md = new markdownIt({
@@ -91,6 +92,8 @@ export function createMdParser(config: Partial<IParser> = defaultConfig) {
       `<article class="md ${config.grid ? 'md-grid' : ''}">${html}</article>`,
       config.theme || 'blue'
     );
+    // 设置默认代码主题
+    changeCodeTheme(config.codeTheme!);
     // 生成toc目录
     generateToc(md, config.toc!, source);
     md.createMdContainer = createMdContainer;

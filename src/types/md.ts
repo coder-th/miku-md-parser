@@ -1,6 +1,7 @@
 import markdownIt from 'markdown-it';
 import { MdThemeType } from '../plugins/theme';
 import { builtInPlugins } from '../plugins';
+import { CodeTheme } from '../plugins/hightlight';
 export type BaseType = 'success' | 'warning' | 'danger' | 'tip' | 'details';
 export interface IContainer<T> {
   /**
@@ -49,4 +50,5 @@ export interface IParser {
   };
   theme: MdThemeType;
   grid: boolean;
+  codeTheme: CodeTheme;
 }

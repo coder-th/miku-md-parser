@@ -21,11 +21,21 @@ export function highlightCode(md: Md, code: string, language: string) {
   }
   return '<pre class="hljs"><code>' + md.utils.escapeHtml(code) + '</code></pre>';
 }
+export type CodeTheme =
+  | 'github'
+  | 'dracula'
+  | 'atom-one-dark'
+  | 'atom-one-light'
+  | 'dark'
+  | 'github-dark'
+  | 'idea'
+  | 'xcode'
+  | 'vs2015';
 /**
  * 切换代码高亮的主题
  * @param codeHighLightTheme
  */
-export function changeCodeTheme(codeHighLightTheme: 'github' | 'dracula' | 'atom-one-dark') {
+export function changeCodeTheme(codeHighLightTheme: CodeTheme) {
   const head = document.head;
   const oldLink = head.getElementsByClassName('highlightjs-style-link');
 
