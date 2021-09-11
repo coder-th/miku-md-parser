@@ -92,7 +92,7 @@ export const builtInPlugins = {
     enable: true,
     isCustom: true,
     config: {
-      use: ['success', 'warning', 'error', 'tips', 'spoiler'] as BaseType[],
+      use: ['success', 'warning', 'danger', 'tip', 'details'] as BaseType[],
       addContainer: createMdContainer,
     },
   },

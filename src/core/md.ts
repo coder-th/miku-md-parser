@@ -2,6 +2,7 @@ import markdownIt from 'markdown-it';
 import { injectMdPlugins, setBuiltInPlugins } from '../plugins';
 import { createMdContainer } from '../plugins/container';
 import { highlightCode } from '../plugins/hightlight';
+import { initTheme } from '../plugins/theme';
 import { IParser, Md } from '../types/md';
 import { isRender } from '../utils/helper';
 const _globalData: { md: null | Md } = {
@@ -79,7 +80,7 @@ export function createMdParser(config: IParser = { toc: { enable: true } }) {
     injectMdPlugins(md);
     // 解析md字符串
     const html = md.render(`${source}`) as string;
-    md.html = html;
+    md.html = initTheme(`<div class="md">${html}</div>`);
     // 生成toc目录
     generateToc(md, config.toc, source);
     md.createMdContainer = createMdContainer;

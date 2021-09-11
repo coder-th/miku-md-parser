@@ -1,6 +1,6 @@
 import markdownIt from 'markdown-it';
 import { builtInPlugins } from '../plugins';
-export type BaseType = 'success' | 'warning' | 'error' | 'tips' | 'spoiler';
+export type BaseType = 'success' | 'warning' | 'danger' | 'tip' | 'details';
 export interface IContainer<T> {
   /**
    * 该容器的标识

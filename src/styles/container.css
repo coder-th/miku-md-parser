@@ -1,0 +1,83 @@
+.custom-block {
+  position: relative;
+  padding: 2px 24px;
+  margin: 16px 0;
+  border-left: solid 8px;
+}
+
+.custom-block::before {
+  position: absolute;
+  top: 16px;
+  left: -16px;
+  width: 20px;
+  height: 20px;
+  font-family: Dosis, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  border-radius: 100%;
+}
+
+/* 警告 */
+.custom-block.md-warning {
+  color: var(--warning-color);
+  background-color: var(--warning-bg);
+  border-color: var(--warning-border);
+}
+
+.custom-block.md-warning .custom-block_title {
+  color: var(--warning-title);
+}
+
+/* 成功 */
+.custom-block.md-success {
+  color: var(--success-color);
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+}
+
+.custom-block.md-success .custom-block_title {
+  color: var(--success-title);
+}
+
+.custom-block.md-success::before {
+  width: 25px;
+  height: 25px;
+  content: url('https://v3.vuejs.org/images/icons/bulb.svg');
+}
+
+/* 提示 */
+.custom-block.md-tip {
+  color: var(--tip-color);
+  background-color: var(--tip-bg);
+  border-color: var(--tip-border);
+}
+
+.custom-block.md-tip .custom-block_title {
+  color: var(--tip-title);
+}
+
+/* 危险 */
+.custom-block.md-danger {
+  color: var(--danger-color);
+  background-color: var(--danger-bg);
+  border-color: var(--danger-border);
+}
+
+.custom-block.md-danger .custom-block_title {
+  color: var(--danger-title);
+}
+
+/* 详情 */
+.custom-block.md-details {
+  padding: 15px;
+  color: var(--details-color);
+  background-color: var(--details-bg);
+  border-color: var(--details-border);
+}
+
+.custom-block.md-details .custom-block_title {
+  color: var(--details-title);
+}

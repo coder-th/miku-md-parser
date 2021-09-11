@@ -33,27 +33,32 @@ export const createMdContainer: Md['createMdContainer'] = function (md, config) 
  * 创建基础的容器(内置)
  */
 export function createBaseContainer(md, config) {
-  // 与用户配置的自定义插件合并
-  const baseType = (['success', 'warning', 'error', 'tips', 'spoiler'] as BaseType[]).filter(
-    (item) => config.use.includes(item)
-  );
+  let baseType = ['success', 'warning', 'danger', 'tip', 'details'] as BaseType[];
+  if (config.use.length) {
+    // 与用户配置的自定义插件合并
+    baseType = baseType.filter((item) => config.use.includes(item));
+  }
   baseType.forEach((type) => {
     const validate = new RegExp(`^${type}(.*)$`);
     const render = (tokens, idx, md) => {
       const m = tokens[idx].info.trim().match(validate);
       if (tokens[idx].nesting === 1) {
-        if (type === 'spoiler') {
+        if (type === 'details') {
           return (
-            `<details class="md-${type}"><summary>` +
+            `<details class="custom-block md-${type}"><summary class="custom-block_title">` +
             (md.utils.escapeHtml(m[1].trim()) || '点我查看详情') +
             '</summary>\n'
           );
         } else {
-          return `<div class="md-${type}"><p>` + md.utils.escapeHtml(m[1].trim()) + '</p>\n';
+          return (
+            `<div class="custom-block md-${type}"><p class="custom-block_title">` +
+            md.utils.escapeHtml(m[1].trim()) +
+            '</p>\n'
+          );
         }
         // opening tag
       } else {
-        if (type === 'spoiler') {
+        if (type === 'details') {
           // closing tag
           return '</details>\n';
         } else {
