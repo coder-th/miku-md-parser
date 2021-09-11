@@ -17,13 +17,35 @@ export type MdThemeType = keyof typeof BuiltInTheme;
  * 切换主题颜色
  * @param type
  */
-export function changeTheme(type: MdThemeType) {
+export function changeTheme(type) {
   const docEle = document.documentElement;
   for (const key of Object.keys(COLOR_MAP)) {
     docEle.style.setProperty(COLOR_MAP[key], BuiltInTheme[type][key]);
   }
 }
-export function initTheme(htmlStr: string) {
+/**
+ * 用户修改或者自定义主题颜色
+ * @param type
+ * @param config
+ */
+export function setTheme<
+  T extends MdThemeType | 'custom',
+  U extends typeof BuiltInTheme[MdThemeType]
+>(type: T, config: U) {
+  for (const key of Object.keys(config)) {
+    if (Object.prototype.hasOwnProperty(type)) {
+      // 用户修改的内置的主题
+      BuiltInTheme[type as MdThemeType][key] = config[key];
+    }
+  }
+}
+/**
+ * 初始化主题
+ * @param htmlStr
+ * @param type
+ * @returns
+ */
+export function initTheme(htmlStr: string, type: MdThemeType) {
   if (htmlStr) {
     htmlStr = htmlStr
       .replace(/\<code\>/gi, (val) => {
@@ -38,6 +60,8 @@ export function initTheme(htmlStr: string) {
     const parser = new DOMParser();
     const dom = parser.parseFromString(htmlStr, 'text/html');
     htmlStr = prettierCode(dom);
+    // 设置默认主题
+    changeTheme(type);
   }
 
   return htmlStr;

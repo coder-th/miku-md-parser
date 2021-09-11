@@ -44,7 +44,7 @@ function generateToc(md: Md, toc: IParser['toc'], source: string) {
  * @param config
  * @returns
  */
-export function createMdParser(config: IParser = { toc: { enable: true } }) {
+export function createMdParser(config: Partial<IParser> = {}) {
   const md = createMd();
   /**
    * 用户集成更过Markdown插件
@@ -73,16 +73,17 @@ export function createMdParser(config: IParser = { toc: { enable: true } }) {
   /**
    * 用户调用render得到解析后的
    * @param source
+   * @param config
    * @returns
    */
-  md.renderMd = function (source: string) {
+  md.renderMd = function (source) {
     // 添加内置的插件
     injectMdPlugins(md);
     // 解析md字符串
     const html = md.render(`${source}`) as string;
-    md.html = initTheme(`<div class="md">${html}</div>`);
+    md.html = initTheme(`<div class="md">${html}</div>`, config.theme || 'blue');
     // 生成toc目录
-    generateToc(md, config.toc, source);
+    generateToc(md, config.toc || { enable: true }, source);
     md.createMdContainer = createMdContainer;
     return md;
   };

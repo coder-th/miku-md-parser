@@ -1,4 +1,5 @@
 import markdownIt from 'markdown-it';
+import { MdThemeType } from '../plugins/theme';
 import { builtInPlugins } from '../plugins';
 export type BaseType = 'success' | 'warning' | 'danger' | 'tip' | 'details';
 export interface IContainer<T> {
@@ -46,4 +47,5 @@ export interface IParser {
   toc: {
     enable: boolean;
   };
+  theme: MdThemeType;
 }
