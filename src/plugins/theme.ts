@@ -1,9 +1,28 @@
+const COLOR_MAP = {
+  bg: '--bg-color',
+  border: '--border-color',
+  font: '--font-color',
+};
+const BuiltInTheme = {
+  red: { font: '#f5222d', bg: '#fff5f5', border: '#ff4d4f' },
+  orange: { font: '#ff7a45', bg: '#fff2e8', border: '#fa541c' },
+  yellow: { font: '#ffc53d', bg: '#fffbe6', border: '#faad14' },
+  green: { font: '#73d13d', bg: '#f6ffed', border: '#52c41a' },
+  cyan: { font: '#36cfc9', bg: '#e6fffb', border: '#13c2c2' },
+  blue: { font: '#40a9ff', bg: '#e6f7ff', border: '#1890ff' },
+  purple: { font: '#f759ab', bg: '#fff0f6', border: '#eb2f96' },
+};
+export type MdThemeType = keyof typeof BuiltInTheme;
 /**
  * 切换主题颜色
  * @param type
  */
-export function changeTheme(type) {}
-
+export function changeTheme(type: MdThemeType) {
+  const docEle = document.documentElement;
+  for (const key of Object.keys(COLOR_MAP)) {
+    docEle.style.setProperty(COLOR_MAP[key], BuiltInTheme[type][key]);
+  }
+}
 export function initTheme(htmlStr: string) {
   if (htmlStr) {
     htmlStr = htmlStr
