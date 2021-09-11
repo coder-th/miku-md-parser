@@ -1,6 +1,5 @@
 // markdown-it plugin for generating line numbers.
 // It depends on preWrapper plugin.
-
 export function lineNumbers(md) {
   const fence = md.renderer.rules.fence;
   md.renderer.rules.fence = (...args) => {
@@ -18,7 +17,7 @@ export function lineNumbers(md) {
       lines[0] = lineFirstFoot;
       const lineNumbersCode = lines
         .filter((item) => item)
-        .map((item, index) => `<span class="line-number">${index + 1}</span>${item}<br>`);
+        .map((item, index) => `<span class="md-line-numbers">${index + 1}</span>${item}<br>`);
       lineNumbersCode[0] = lineFirstHead + lineNumbersCode[0];
       finalCode = rawCode
         .replace(code, lineNumbersCode.join(''))

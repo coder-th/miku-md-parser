@@ -87,8 +87,6 @@ export function createMdParser(config: Partial<IParser> = defaultConfig) {
     injectMdPlugins(md);
     // 解析md字符串
     const html = md.render(`${source}`) as string;
-    console.log('renderMd', config);
-
     md.html = initTheme(
       `<article class="md ${config.grid ? 'md-grid' : ''}">${html}</article>`,
       config.theme || 'blue'

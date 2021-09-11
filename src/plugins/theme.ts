@@ -85,22 +85,23 @@ function prettierCode(document: Document): string {
       lang = args[2];
       return args[0];
     });
-    blockPre.style.position = 'relative';
-    blockPre.style.fontSize = '15px';
-    blockPre.style.borderRadius = '5px';
-    blockPre.style.padding = '1em';
-    blockPre.className = 'hljs';
-    blockPre.style.backgroundColor = block.style.backgroundColor;
+    block.style.padding = '40px 15px 10px 0';
+    block.style.borderRadius = '5px';
+    blockPre.className = 'md-pre-block';
     blockPre.dataset.lang = lang;
     const copyELe = document.createElement('span');
     copyELe.innerText = lang;
-    copyELe.style.position = 'absolute';
-    copyELe.style.top = '10px';
-    copyELe.style.right = '10px';
-    copyELe.style.cursor = 'pointer';
-    copyELe.className = 'copy';
+    copyELe.className = 'md-copy';
     copyELe.dataset.lang = lang;
     blockPre.appendChild(copyELe);
+    const beautifyEle = document.createElement('div');
+    beautifyEle.className = 'md-ting';
+    ['red', 'yellow', 'green'].forEach((className) => {
+      const span = document.createElement('span');
+      span.className = className;
+      beautifyEle.appendChild(span);
+    });
+    blockPre.appendChild(beautifyEle);
   });
   return document.body.innerHTML;
 }

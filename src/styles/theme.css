@@ -3,6 +3,7 @@
   width: 700px;
   max-width: 100%;
   padding: 20px 24px 16px 24px;
+  line-height: 1.5;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
@@ -33,4 +34,62 @@
     linear-gradient(1turn, var(--grid-color) 3%, transparent 0);
   background-position: 50%;
   background-size: 20px 20px;
+}
+
+.md-pre-block {
+  position: relative;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+.md-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #abb2bf;
+  cursor: pointer;
+  user-select: none;
+}
+
+.md-ting {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.md-ting span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  padding: 0 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.md-ting .red {
+  background-color: #ff5552;
+}
+
+.md-ting .yellow {
+  background-color: #ffb53c;
+}
+
+.md-ting .green {
+  background-color: #00c341;
+}
+
+.md-line-numbers {
+  display: inline-block;
+  min-width: 35px;
+  margin-right: 8px;
+  color: #abb2bf;
+  text-align: center;
+  user-select: none;
+}
+
+.md-line-numbers:first-child {
+  display: inline-block;
+  padding-top: 0.5em;
 }
