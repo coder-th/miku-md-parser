@@ -48,4 +48,5 @@ export interface IParser {
     enable: boolean;
   };
   theme: MdThemeType;
+  grid: boolean;
 }

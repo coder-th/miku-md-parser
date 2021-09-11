@@ -4,9 +4,14 @@ import { createMdContainer } from '../plugins/container';
 import { highlightCode } from '../plugins/hightlight';
 import { initTheme } from '../plugins/theme';
 import { IParser, Md } from '../types/md';
-import { isRender } from '../utils/helper';
+import { deepMerge, isRender } from '../utils/helper';
 const _globalData: { md: null | Md } = {
   md: null,
+};
+const defaultConfig: IParser = {
+  grid: true,
+  toc: { enable: true },
+  theme: 'blue',
 };
 function createMd(): Md {
   const md = new markdownIt({
@@ -44,8 +49,9 @@ function generateToc(md: Md, toc: IParser['toc'], source: string) {
  * @param config
  * @returns
  */
-export function createMdParser(config: Partial<IParser> = {}) {
+export function createMdParser(config: Partial<IParser> = defaultConfig) {
   const md = createMd();
+  config = deepMerge<IParser>(defaultConfig, config);
   /**
    * 用户集成更过Markdown插件
    * @param this
@@ -81,9 +87,14 @@ export function createMdParser(config: Partial<IParser> = {}) {
     injectMdPlugins(md);
     // 解析md字符串
     const html = md.render(`${source}`) as string;
-    md.html = initTheme(`<div class="md">${html}</div>`, config.theme || 'blue');
+    console.log('renderMd', config);
+
+    md.html = initTheme(
+      `<article class="md ${config.grid ? 'md-grid' : ''}">${html}</article>`,
+      config.theme || 'blue'
+    );
     // 生成toc目录
-    generateToc(md, config.toc || { enable: true }, source);
+    generateToc(md, config.toc!, source);
     md.createMdContainer = createMdContainer;
     return md;
   };

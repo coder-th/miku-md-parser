@@ -2,15 +2,16 @@ const COLOR_MAP = {
   bg: '--bg-color',
   border: '--border-color',
   font: '--font-color',
+  grid: '--grid-color',
 };
 const BuiltInTheme = {
-  red: { font: '#f5222d', bg: '#fff5f5', border: '#ff4d4f' },
-  orange: { font: '#ff7a45', bg: '#fff2e8', border: '#fa541c' },
-  yellow: { font: '#ffc53d', bg: '#fffbe6', border: '#faad14' },
-  green: { font: '#73d13d', bg: '#f6ffed', border: '#52c41a' },
-  cyan: { font: '#36cfc9', bg: '#e6fffb', border: '#13c2c2' },
-  blue: { font: '#40a9ff', bg: '#e6f7ff', border: '#1890ff' },
-  purple: { font: '#f759ab', bg: '#fff0f6', border: '#eb2f96' },
+  red: { font: '#f5222d', bg: '#fff5f5', border: '#ff4d4f', grid: 'rgba(255,197,193,0.2)' },
+  orange: { font: '#ff7a45', bg: '#fff2e8', border: '#fa541c', grid: 'rgba(255,211,185,0.15)' },
+  yellow: { font: '#ffc53d', bg: '#fffbe6', border: '#faad14', grid: 'rgba(255,226,139,0.2)' },
+  green: { font: '#73d13d', bg: '#f6ffed', border: '#52c41a', grid: 'rgba(170,233,137,0.2)' },
+  cyan: { font: '#36cfc9', bg: '#e6fffb', border: '#13c2c2', grid: 'rgba(167,244,233,0.2)' },
+  blue: { font: '#40a9ff', bg: '#e6f7ff', border: '#1890ff', grid: 'rgba(174,227,253,0.2)' },
+  purple: { font: '#f759ab', bg: '#fff0f6', border: '#eb2f96', grid: 'rgba(255,208,227,0.2)' },
 };
 export type MdThemeType = keyof typeof BuiltInTheme;
 /**

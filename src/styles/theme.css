@@ -1,3 +1,14 @@
+.md {
+  position: relative;
+  width: 700px;
+  max-width: 100%;
+  padding: 20px 24px 16px 24px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  box-sizing: border-box;
+}
+
 .md-single-code {
   padding: 0.065em 0.4em;
   overflow-x: auto;
@@ -14,4 +25,12 @@
   color: var(--font-color);
   background-color: var(--bg-color);
   border-left: solid var(--border-color) 5px;
+}
+
+.md-grid {
+  overflow-x: hidden;
+  background-image: linear-gradient(90deg, var(--grid-color) 3%, transparent 0),
+    linear-gradient(1turn, var(--grid-color) 3%, transparent 0);
+  background-position: 50%;
+  background-size: 20px 20px;
 }
