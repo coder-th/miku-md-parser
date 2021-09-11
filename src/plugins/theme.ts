@@ -17,21 +17,31 @@ export type MdThemeType = keyof typeof BuiltInTheme;
  * 切换主题颜色
  * @param type
  */
-export function changeTheme(type) {
+export function changeTheme(type: MdThemeType) {
   const docEle = document.documentElement;
   for (const key of Object.keys(COLOR_MAP)) {
     docEle.style.setProperty(COLOR_MAP[key], BuiltInTheme[type][key]);
   }
 }
 /**
- * 用户修改或者自定义主题颜色
+ * 用户切换自定义主题
+ * @param config
+ */
+export function changeCustomTheme(config: typeof BuiltInTheme[MdThemeType]) {
+  const docEle = document.documentElement;
+  for (const key of Object.keys(config)) {
+    docEle.style.setProperty(COLOR_MAP[key], config[key]);
+  }
+}
+/**
+ * 用户修改内置主题颜色
  * @param type
  * @param config
  */
-export function setTheme<
-  T extends MdThemeType | 'custom',
-  U extends typeof BuiltInTheme[MdThemeType]
->(type: T, config: U) {
+export function setBuiltInTheme<T extends MdThemeType, U extends typeof BuiltInTheme[MdThemeType]>(
+  type: T,
+  config: Partial<U>
+) {
   for (const key of Object.keys(config)) {
     if (Object.prototype.hasOwnProperty(type)) {
       // 用户修改的内置的主题
