@@ -46,8 +46,7 @@
   },
   "types": "dist/index.d.ts",
   "files": [
-    "dist/",
-    "src/"
+    "dist/"
   ],
   "dependencies": {
     "@types/markdown-it": "^12.2.1",

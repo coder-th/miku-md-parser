@@ -69,6 +69,9 @@ export function initTheme(htmlStr: string, type: MdThemeType) {
       })
       .replace(/\<blockquote/gi, (val) => {
         return `<blockquote class="md-blockquote"`;
+      })
+      .replace(/\<table/gi, (val) => {
+        return `<table class="md-table"`;
       });
     const parser = new DOMParser();
     const dom = parser.parseFromString(htmlStr, 'text/html');
