@@ -167,3 +167,12 @@
 .md-table tr:nth-child(even) {
   background-color: var(--bg-color);
 }
+
+.md-toc-li.active {
+  color: var(--font-color);
+}
+
+.md-toc-li {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}

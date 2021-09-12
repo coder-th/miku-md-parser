@@ -38,8 +38,10 @@ function generateToc(md: Md, toc: IParser['toc'], source: string) {
   if (toc.enable) {
     const parser = new DOMParser();
     const dom = parser.parseFromString(md.render(`[[toc]]${source}`), 'text/html');
-    tocStr = (dom.childNodes[0] as HTMLDivElement).getElementsByClassName('table-of-contents')[0]
-      .innerHTML;
+    tocStr = (dom.childNodes[0] as HTMLDivElement)
+      .getElementsByClassName('table-of-contents')[0]
+      .innerHTML.replace(/<ul/gi, () => `<ul class="md-toc-ul"`)
+      .replace(/<li/gi, () => `<li class="md-toc-li"`);
   }
   md._render = true;
 
