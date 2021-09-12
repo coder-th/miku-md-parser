@@ -1,6 +1,7 @@
 import markdownIt from 'markdown-it';
 import { extendMd } from '../extends';
-import { injectMdPlugins, setBuiltInPlugins } from '../plugins';
+import { TocCls } from '../extends/toc';
+import { builtInPlugins, injectMdPlugins, setBuiltInPlugins } from '../plugins';
 import { createMdContainer } from '../plugins/container';
 import { changeCodeTheme, highlightCode } from '../plugins/hightlight';
 import { initTheme } from '../plugins/theme';
@@ -38,10 +39,18 @@ function generateToc(md: Md, toc: IParser['toc'], source: string) {
   if (toc.enable) {
     const parser = new DOMParser();
     const dom = parser.parseFromString(md.render(`[[toc]]${source}`), 'text/html');
+    const hReg = new RegExp(
+      `<h[${builtInPlugins.TABLE_CONTENT.config.includeLevel.join(',')}]`,
+      'ig'
+    );
     tocStr = (dom.childNodes[0] as HTMLDivElement)
       .getElementsByClassName('table-of-contents')[0]
-      .innerHTML.replace(/<ul/gi, () => `<ul class="md-toc-ul"`)
-      .replace(/<li/gi, () => `<li class="md-toc-li"`);
+      .innerHTML.replace(/<ul/gi, () => `<ul class="${TocCls.UL}"`)
+      .replace(/<li/gi, () => `<li class="${TocCls.LI}"`);
+    // 给需要生成目录的h标签添加标志
+    md.html = md.html.replace(hReg, (val) => {
+      return val + ` class="${TocCls.HEADER}"`;
+    });
   }
   md._render = true;
 
