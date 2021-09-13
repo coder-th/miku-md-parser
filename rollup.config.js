@@ -15,18 +15,8 @@ export default {
   input: resolve('src/index.ts'),
   output: [
     {
-      file: resolve('dist/index.cjs.js'),
-      format: 'cjs',
-      name: pkgName,
-    },
-    {
       file: resolve('dist/index.js'),
       format: 'umd',
-      name: pkgName,
-    },
-    {
-      file: resolve('dist/index.global.js'),
-      format: 'iife',
       name: pkgName,
     },
   ],
