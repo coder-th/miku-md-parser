@@ -51,4 +51,5 @@ export interface IParser {
   theme: MdThemeType;
   grid: boolean;
   codeTheme: CodeTheme;
+  copy: { enable: boolean };
 }

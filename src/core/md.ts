@@ -15,6 +15,7 @@ const defaultConfig: IParser = {
   toc: { enable: true },
   theme: 'blue',
   codeTheme: 'atom-one-dark',
+  copy: { enable: true },
 };
 function createMd(): Md {
   const md = new markdownIt({
@@ -23,6 +24,7 @@ function createMd(): Md {
     highlight: (code, lang) => {
       return highlightCode(md, code, lang);
     },
+    html: true,
   });
   (md as Md)._render = false; // 标识是否已经渲染
   _globalData.md = md as Md;
@@ -109,7 +111,7 @@ export function createMdParser(config: Partial<IParser> = defaultConfig) {
     // 生成toc目录
     generateToc(md, config.toc!, source);
     // 添加扩展功能
-    extendMd();
+    extendMd(config as IParser);
     md.createMdContainer = createMdContainer;
     return md;
   };

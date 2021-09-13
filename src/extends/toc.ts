@@ -1,3 +1,7 @@
+// import { debounce } from '../utils/helper';
+
+import { IParser } from '../types/md';
+
 const headersInfo: { offsetTop: number; id: string }[] = []; // 记录每一个标题的位置和锚点
 export const TocCls = {
   HEADER: 'md-h-level',
@@ -5,15 +9,19 @@ export const TocCls = {
   ACTIVE: 'active',
   UL: 'md-toc-ul',
 };
-export function extendToc() {
-  setTimeout(() => {
-    const nodes = document.getElementsByClassName(TocCls.LI);
-    for (let i = 0, len = nodes.length; i < len; i++) {
-      highlightWhenClick(nodes[i], nodes);
-    }
-    recordHeaderInfo();
-    highLightWhenScroll();
-  }, 0);
+export function extendToc({ enable }: IParser['toc']) {
+  if (enable) {
+    setTimeout(() => {
+      const nodes = document.getElementsByClassName(TocCls.LI);
+      for (let i = 0, len = nodes.length; i < len; i++) {
+        highlightWhenClick(nodes[i], nodes);
+      }
+      recordHeaderInfo();
+      // window.addEventListener('scroll', () => {
+      //   debounce(highLightWhenScroll);
+      // });
+    }, 0);
+  }
 }
 /**
  * 记录每一个标题的位置和锚点
@@ -47,32 +55,30 @@ function highlightWhenClick(ele: Element, nodes: HTMLCollectionOf<Element>) {
 /**
  * 滚动时高亮标题
  */
-function highLightWhenScroll() {
-  window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop;
-    for (let i = 0, len = headersInfo.length; i < len; i++) {
-      if (headersInfo[i].offsetTop - scrollTop >= 0) {
-        // 移除所有的active
-        const nodes = document.getElementsByClassName(TocCls.LI);
-        for (let j = 0, len = nodes.length; j < len; j++) {
-          const href = nodes[j].getElementsByTagName('a')[0].href;
-          const id = href.substr(href.indexOf('#') + 1);
-          if (headersInfo[i].id === id) {
-            nodes[j].classList.remove(TocCls.ACTIVE);
-            nodes[j].classList.add(TocCls.ACTIVE);
-          } else {
-            nodes[j].classList.remove(TocCls.ACTIVE);
-          }
+function _highLightWhenScroll() {
+  const scrollTop = document.documentElement.scrollTop;
+  for (let i = 0, len = headersInfo.length; i < len; i++) {
+    if (headersInfo[i].offsetTop - scrollTop >= 0) {
+      // 移除所有的active
+      const nodes = document.getElementsByClassName(TocCls.LI);
+      for (let j = 0, len = nodes.length; j < len; j++) {
+        const href = nodes[j].getElementsByTagName('a')[0].href;
+        const id = href.substr(href.indexOf('#') + 1);
+        if (headersInfo[i].id === id) {
+          nodes[j].classList.remove(TocCls.ACTIVE);
+          nodes[j].classList.add(TocCls.ACTIVE);
+        } else {
+          nodes[j].classList.remove(TocCls.ACTIVE);
         }
-        return;
       }
+      return;
     }
-    // 如果走到这里，说明滚到底部了
-    // 移除所有的active
-    const nodes = document.getElementsByClassName(TocCls.LI);
-    for (let i = 0, len = nodes.length; i < len; i++) {
-      nodes[i].classList.remove(TocCls.ACTIVE);
-    }
-    nodes[nodes.length - 1].classList.add(TocCls.ACTIVE);
-  });
+  }
+  // 如果走到这里，说明滚到底部了
+  // 移除所有的active
+  const nodes = document.getElementsByClassName(TocCls.LI);
+  for (let i = 0, len = nodes.length; i < len; i++) {
+    nodes[i].classList.remove(TocCls.ACTIVE);
+  }
+  nodes[nodes.length - 1].classList.add(TocCls.ACTIVE);
 }

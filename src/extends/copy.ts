@@ -1,32 +1,37 @@
 import ClipboardJS from 'clipboard';
+import { IParser } from '../types/md';
 type Source = string | Element | NodeListOf<Element>;
 export const CopyClassName = 'md-copy';
 /**
  * 添加复制功能
  * @param target
  */
-export function extendCopy(target: Source) {
-  setTimeout(function () {
-    //这时候就渲染好了，因为该操作比较耗时，所以放在异步线程做了
-    const codeBlocks = document.querySelectorAll('pre');
-    if (codeBlocks.length) {
-      for (const code of Object.values(codeBlocks)) {
-        code.addEventListener('mouseenter', (e) => {
-          setTimeout(() => {
-            (e.target as any).getElementsByClassName('md-copy')[0].innerText = '点我复制';
-          }, 300);
-        });
-        code.addEventListener('mouseleave', (e) => {
-          setTimeout(() => {
-            (e.target as any).getElementsByClassName('md-copy')[0].innerText = (
-              e.target as any
-            ).dataset.lang;
-          }, 500);
-        });
+export function extendCopy(target: Source, config: IParser['copy']) {
+  const { enable } = config;
+  // 用户配置启用代码复制的功能
+  if (enable) {
+    setTimeout(function () {
+      //这时候就渲染好了，因为该操作比较耗时，所以放在异步线程做了
+      const codeBlocks = document.querySelectorAll('pre');
+      if (codeBlocks.length) {
+        for (const code of Object.values(codeBlocks)) {
+          code.addEventListener('mouseenter', (e) => {
+            setTimeout(() => {
+              (e.target as any).getElementsByClassName('md-copy')[0].innerText = '点我复制';
+            }, 300);
+          });
+          code.addEventListener('mouseleave', (e) => {
+            setTimeout(() => {
+              (e.target as any).getElementsByClassName('md-copy')[0].innerText = (
+                e.target as any
+              ).dataset.lang;
+            }, 500);
+          });
+        }
       }
-    }
-    resolveCopyEvent(target);
-  }, 0);
+      resolveCopyEvent(target);
+    }, 0);
+  }
 }
 /**
  * 处理复制事件
@@ -50,7 +55,11 @@ function resolveCopyEvent(source: Source) {
     e.clearSelection();
   });
 }
-
+/**
+ * 创建通知元素
+ * @param msg
+ * @param duration
+ */
 function addNotify(msg: string, duration = 3000) {
   const m = document.createElement('div');
   m.innerHTML = msg;

@@ -72,7 +72,9 @@ export function initTheme(htmlStr: string, type: MdThemeType) {
       })
       .replace(/\<table/gi, (val) => {
         return `<table class="md-table"`;
-      });
+      })
+      .replace(/\<hr/gi, (val) => `<hr class="md-hr"`)
+      .replace(/\<a\s/gi, () => `<a class="md-wave"`);
     const parser = new DOMParser();
     const dom = parser.parseFromString(htmlStr, 'text/html');
     htmlStr = prettierCode(dom);

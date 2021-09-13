@@ -61,7 +61,6 @@
 
 .md-ting span {
   display: inline-block;
-  width: 10px;
   height: 10px;
   padding: 0 5px;
   margin-right: 5px;
@@ -175,4 +174,46 @@
 .md-toc-li {
   color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
+}
+
+.md-hr {
+  border: var(--font-color) dashed 1px;
+}
+
+.md-wave {
+  padding: 5px 0;
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+.md-wave:hover,
+.md-wave:focus {
+  background: radial-gradient(
+        circle at 10px -7px,
+        transparent 8px,
+        currentColor 8px,
+        currentColor 9px,
+        transparent 9px
+      )
+      repeat-x,
+    radial-gradient(
+        circle at 10px 27px,
+        transparent 8px,
+        currentColor 8px,
+        currentColor 9px,
+        transparent 9px
+      )
+      repeat-x;
+  background-position: -10px calc(100% + 16px), 0 calc(100% - 4px);
+  background-size: 20px 20px;
+  animation: waveFlow 1s infinite linear;
+}
+@keyframes waveFlow {
+  from {
+    background-position-x: -10px, 0;
+  }
+
+  to {
+    background-position-x: -30px, -20px;
+  }
 }
